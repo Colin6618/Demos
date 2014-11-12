@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue2</title>
+	<script src="lib/vue.min.js"></script>
+</head>
+<body>
+<div id="demo">
+    <button v-disable="disabled">
+        {{disabled ? 'Disabled' : 'Submit'}}
+    </button>
+    <button v-on="click: disabled = !disabled">toggle</button>
+</div>
+	<script>
+Vue.directive('disable', function (value) {
+    this.el.disabled = !!value
+})
+
+var demo = new Vue({
+    el: '#demo',
+    data: {
+        disabled: false
+    }
+})
+	</script>
+</body>
+</html>
