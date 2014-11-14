@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue3 vue4</title>
+	<script src="lib/jq.min.js"></script>
+</head>
+<body>
+
+<div id="demo">
+	<h1>1</h1>
+	<button id= "addN">add 1</button>
+</div>
+	<script>
+	$(function(){
+		$theH = $('#demo>h1');
+		$('#addN').on('click', function(e){
+			$this = this,
+			theH = $theH.html();
+			$theH.html(++theH);
+		});
+	});
+	</script>
+</body>
+</html>

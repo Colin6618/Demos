@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue3 vue4</title>
+	<script src="lib/vue.min.js"></script>
+</head>
+<body>
+
+<div id="demo">
+	<h1>{{n}}</h1>
+	<button v-on= "click: changeN">add 1</button>
+</div>
+	<script>
+	var data = {
+	    message: 'Hello Vue.js!',
+	    n:1
+	};
+	var demo = new Vue({
+		el: '#demo',
+		data: data,
+		methods: {
+			changeN: function(e){
+				this.n++
+		}}
+	});
+
+	</script>
+</body>
+</html>

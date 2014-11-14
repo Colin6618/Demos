@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue0 template</title>
+    <script src="lib/vue.min.js"></script>
+</head>
+<body>
+    <ul id="demo">
+
+        <input v-model="searchText">
+        <li v-repeat="todos">{{$index | normalIndex}} {{title | reverse}}</li>
+        <li v-repeat="num">{{$value}}</li>
+        <hr>
+        <li v-repeat="users | filterBy searchText">{{name}}</li>
+        <hr>
+        <li v-repeat="users | sortBy 'name' -1">{{name}}</li>
+    </ul>
+    <script>
+    var dd =[
+        { title: 'learn javascript a' },
+        { title: 'learn Vue.js' },
+        { title: 'hi' },
+        { title: 'hi' }
+    ];
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            todos:dd,
+            num: [1024,2048,4096],
+            users:[
+                {
+                    name: "lao wang"
+                },
+                {
+                    name: "xiao wang"
+                },
+                {
+                    name: "xiao long"
+                },
+                {
+                    name: "naroto"
+                },
+                {
+                    name: "sakura"
+                }
+            ]
+    }});
+
+    setTimeout(function(){
+        dd.push({ title: 'learn javascript b' });
+        dd[3] = { title: 'hi u' };
+    // dd.$remove(dd[2]);
+}, 1000);
+
+</script>
+</body>
+</html>

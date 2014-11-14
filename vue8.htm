@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue0 template</title>
+	<script src="lib/vue.min.js"></script>
+</head>
+<body>
+<div id="demo-1">
+    <p v-component="user-profile" v-with="user"></p>
+</div>
+
+<ul id="demo-2">
+    <!-- 这里使用了上面注册的 user-profile 组件 -->
+    <li v-repeat="users" v-component="user-profile"></li>
+</ul>
+	<script>
+// 先注册一个组件
+Vue.component('user-profile', {
+    template: '{{name}}<br>{{email}}'
+})
+// user 对象将会被作为 `data` 提供给 user-profile 组件。
+var parent = new Vue({
+    el: '#demo-1',
+    data: {
+        user: {
+            name: 'Foo Bar',
+            email: 'foo@bar.com'
+        }
+    }
+});
+
+var parent2 = new Vue({
+    el: '#demo-2',
+    data: {
+        users: [
+            {
+                name: 'Chuck Norris',
+                email: 'chuck@norris.com'
+            },
+            {
+                name: 'Bruce Lee',
+                email: 'bruce@lee.com'
+            }
+        ]
+    }
+});
+	</script>
+</body>
+</html>
