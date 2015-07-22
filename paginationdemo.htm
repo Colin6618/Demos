@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+    <script src="http://g.alicdn.com/kissy/k/1.4.14/seed-min.js" charset="utf-8"></script>
+</head>
+<body>
+  <div id="page1"></div>
+  <script>
+  var S = KISSY;
+  S.use('kg/paginations/1.0.1/index,kg/paginations/1.0.1/custom,kg/paginations/1.0.1/index.css', function (S, Pagination, customTpl) {
+   var pagination = new Pagination({
+            $container: '#page1',
+            currentPage: 1,
+            totalPage: 5,
+            showSkip: false,
+            showPrevAndNext: false
+        }).on('before:skip', function (ev) {
+            alert(ev.page);
+            //return false; //可以阻止渲染
+        }).on('skip', function (ev) {
+            console.log(ev);
+            alert(ev);
+        }).on('skip:error', function (ev) {
+            alert(ev.page + '不符合');
+        });
+      });
+    </script>
+</body>
+</html>

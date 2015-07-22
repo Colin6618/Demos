@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>addrowDemo</title>
+</head>
+<body>
+	<div id="container">
+			<button id="add">+</button>
+			<input type="text">
+	</div>
+	<script>
+		document.getElementById('add').addEventListener('click', function(){
+			var _input = document.createElement('input');
+			document.getElementById('container').appendChild(_input);
+		});
+	</script>
+</body>
+</html>

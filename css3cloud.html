@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cloud</title>
+</head>
+<body>
+
+<style type="text/css">
+
+	body{
+		background: #00BBFF;
+	}
+
+	#container{
+		position: absolute;
+		top:36%;
+		left: 40%;
+		width:200px;
+		height:210px;
+		/*border:1px solid white;*/
+	}
+
+	#container:hover .storm{
+		display: block;
+	}
+
+	@-webkit-keyframes cloudy{
+		50% { 
+			transform: translateY(-20px); 
+		}
+	}
+
+	@-webkit-keyframes cloudy_shadow{
+		50% { 
+			transform: scale(0.7); 
+		}
+	}
+
+	@-webkit-keyframes cloudy_anger{
+		0%  { -webkit-transform: rotate(20deg); opacity: 1;}
+		4% { -webkit-transform: rotate(-34deg);opacity: 1;}
+		8% { -webkit-transform: rotate(0deg); opacity: 1;}
+		12% { -webkit-transform: rotate(-34deg); opacity: 0}
+	}
+
+
+	.cloud{
+		background: #fff;
+		position: relative;
+		top:70px;
+		left:37px;
+		width: 50px;
+		height:50px;
+		border-radius: 50%;
+		box-shadow: #FFFFFF 65px -15px 0 -5px, #FFFFFF 25px -25px, #FFFFFF 30px 10px, #FFFFFF 60px 15px 0 -10px, #FFFFFF 85px 5px 0 -5px;
+		-webkit-animation: cloudy 5s ease-in-out infinite;
+		z-index: 10;
+	}
+	.cloud:after{
+		content: '';
+		width:120px;
+		height:15px;
+		border-radius: 50%;
+		background: #000;
+		opacity: 0.2;
+		position: absolute;
+		left: 5px;
+		bottom: -90px;
+		-webkit-animation: cloudy_shadow 5s ease-in-out infinite;
+	}
+
+	.storm{
+	border-left: 0px solid transparent;
+	border-right: 7px solid transparent;
+	border-top: 40px solid yellow; 
+	box-shadow: yellow -6px -31px;
+	content: '';
+	display: none;
+	height: 0;
+	width: 0;
+	position: absolute;
+	left: 91px;
+	top: 133px;
+	z-index: 5;
+	-webkit-transform: rotate(14deg);
+	-webkit-transform-origin: 50% -80px;
+	-webkit-animation: cloudy_anger 2.5s steps(1,end) infinite;
+	}
+</style>
+<div id="container">
+	<div class="cloud">
+	</div>
+	<div class="storm">
+	</div>
+</div>
+
+</body>
+</html>
