@@ -5,22 +5,16 @@ class TodoItems extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = this.props;
   }
 
-  render() {
-    var itemStyle = {
-      textDecoration: 'line-through'
-    }
+  render(e) {
+
     return (
       <div className="TodoItems">
         <ol>
-          {this.state.data.map((item, index) => {
-            return (
-              <TodoItem todo={item} key={index} />
-            )
-            }
-          )}
+          {this.props.todos.map((item, index) => {
+            return (<TodoItem {...item} onClick={() => this.props.onTodoClick(index)} key={index} />)
+          })}
         </ol>
       </div>
     )
