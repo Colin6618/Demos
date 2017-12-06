@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>upng</title>
+    <style media="screen">
+        .dropmenu {
+            font-size: 1.5em;
+            display: inline-block;
+            padding: 0.6em 0.2em;
+            margin: 0 1.4em;
+            border: 5px dashed #555;
+            border-radius: 0.6em;
+            cursor: pointer;
+        }
+    </style>
+    <script src="./UPNG.js" charset="utf-8"></script>
+    <script src="./pako.js" charset="utf-8"></script>
+    <script src="./UZIP.js" charset="utf-8"></script>
+</head>
+
+<body onload="Go();">
+    <span class="dropmenu" onclick="showOpenDialog()">Drag and drop your PNG files!</span>
+    <script type="text/javascript">
+        var pngs = [];
+        var curr = -1;
+        var cnum = 256; // quality
+        var cnv, ctx;
+        var main, list, totl, fopn
+        var viw = 0,
+            vih = 0;
+        var ioff = {
+                x: 0,
+                y: 0
+            },
+            mouse = null;
+
+        function Go() {
+            //loadURL("grid.png");  loadURL("bunny.png");
+            // main = document.getElementById("main");
+            // list = document.getElementById("list");
+            // totl = document.getElementById("totl");
+            // cnv = document.getElementById("cnv");
+            // ctx = cnv.getContext("2d");
+            // cnv.addEventListener("mousedown", onMD, false);
+            fopn = document.createElement("input");
+            fopn.setAttribute("type", "file");
+            fopn.addEventListener("change", onFileDrop, false);
+            document.body.appendChild(fopn);
+            fopn.setAttribute("style", "display:none");
+            fopn.setAttribute("multiple", "");
+
+            var dc = document.body;
+
+            dc.addEventListener("dragover", cancel);
+            dc.addEventListener("dragenter", cancel); //highlight);
+            dc.addEventListener("dragleave", cancel); //unhighlight);
+            dc.addEventListener("drop", onFileDrop);
+
+            // window.addEventListener("resize", resize);
+            // resize();
+            //setTimeout(function() { document.getElementById("bunny").setAttribute("style", "transform: translate(0, 220px)"); }, 1000);
+        }
+
+        function cancel(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        function dropLoaded(e) {
+            addPNG(e.target.result, e.target._file.name);
+            // unhighlight(e);
+        }
+
+        function addPNG(buff, name) {
+            var mgc = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a],
+                ubuff = new Uint8Array(buff);
+            for (var i = 0; i < 8; i++) //png格式
+                if (mgc[i] != ubuff[i]) return;
+            var img = UPNG.decode(buff),
+                rgba = UPNG.toRGBA8(img)[0];
+            var npng = {
+                name: name,
+                width: img.width,
+                height: img.height,
+                odata: buff,
+                orgba: new Uint8Array(rgba),
+                ndata: null,
+                nrgba: null
+            };
+            var nc = pngs.length;
+            pngs.push(npng);
+            recompute(nc);
+            setCurr(nc);
+        }
+
+
+        function onFileDrop(e) {
+            cancel(e);
+            var fls = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+            for (var i = 0; i < fls.length; i++) {
+                var f = fls[i];
+                var r = new FileReader();
+                r._file = f;
+                r.onload = dropLoaded;
+                r.readAsArrayBuffer(f);
+            }
+        }
+
+        function showOpenDialog() // show open dialog
+        {
+            var evt = document.createEvent('MouseEvents');
+            evt["initMouseEvent"]("click", true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+            fopn.dispatchEvent(evt);
+        }
+    </script>
+</body>
+
+</html>
