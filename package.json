@@ -1,0 +1,8 @@
+{
+  "name": "demorepo",
+  "version": "0.0.1",
+  "description": "for single page debugging",
+  "main": "Nodejs/asyncwithsync.js",
+  "author": "",
+  "license": "ISC"
+}

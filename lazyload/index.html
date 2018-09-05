@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>直播调研</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
+    <style media="screen">
+        img {
+            background: #F1F1FA;
+            width: 400px;
+            height: 300px;
+            display: block;
+            margin: 10px auto;
+            border: 0;
+        }
+    </style>
+
+<body>
+    <h1>方式一</h1>
+    <hr>
+    <img src="https://ik.imagekit.io/demo/img/image1.jpeg?tr=w-400,h-300" />
+    <img src="https://ik.imagekit.io/demo/img/image2.jpeg?tr=w-400,h-300" />
+    <img src="https://ik.imagekit.io/demo/img/image3.jpg?tr=w-400,h-300" />
+    <hr>
+    <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg?r=1" />
+    <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg" />
+    <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg?r=1" />
+    <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg" />
+    <img class="lazy" data-src="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg?r=1" />
+    <img class="lazy" data-src="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg" />
+
+</body>
+<script>
+    var options = {
+        root: null,
+        rootMargin: '0px 0px 200px 0px',
+        threshold: 1.0
+    }
+    var callback = function (entries, observer) {
+        entries.forEach(entry => {
+            // Each entry describes an intersection change for one observed
+            // target element:
+            //   entry.boundingClientRect
+            //   entry.intersectionRatio
+            //   entry.intersectionRect
+            //   entry.isIntersecting
+            //   entry.rootBounds
+            //   entry.target
+            //   entry.time
+            if (entry.isIntersecting) {
+                console.log(entry);
+                var img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+            }
+        });
+    }
+    var observer = new IntersectionObserver(callback, options);
+    document.querySelectorAll('.lazy').forEach(function (img) {
+        observer.observe(img);
+    });
+</script>
+
+</html>

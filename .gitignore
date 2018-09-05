@@ -18,3 +18,5 @@ run.log
 .upload/
 .cache/
 npm-debug.log
+.vscode
+
