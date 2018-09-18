@@ -34,10 +34,13 @@
 <script>
     var options = {
         root: null,
-        rootMargin: '0px 0px 200px 0px',
+        rootMargin: '0px 0px -200px 0px',
         threshold: 1.0
     }
-    var callback = function (entries, observer) {
+   
+
+    var observer = new IntersectionObserver(callback, options);
+    function callback(entries, observer) {
         entries.forEach(entry => {
             // Each entry describes an intersection change for one observed
             // target element:
@@ -53,10 +56,11 @@
                 var img = entry.target;
                 img.src = img.dataset.src;
                 img.classList.remove('lazy');
+                observer.unobserve(img);
             }
         });
     }
-    var observer = new IntersectionObserver(callback, options);
+
     document.querySelectorAll('.lazy').forEach(function (img) {
         observer.observe(img);
     });
