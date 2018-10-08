@@ -19,4 +19,6 @@ run.log
 .cache/
 npm-debug.log
 .vscode
+captured/
+*/captured
 
