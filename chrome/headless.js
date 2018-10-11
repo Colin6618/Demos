@@ -7,5 +7,5 @@ function launchHeadlessChrome(url, callback) {
 }
 
 launchHeadlessChrome('https://www.chromestatus.com', (err, stdout, stderr) => {
-  ...
+  
 });

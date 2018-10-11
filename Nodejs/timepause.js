@@ -11,7 +11,7 @@ async function run() {
 
 async function run() {
     console.log('Hello', new Date().getTime())
-    await pause2(1000) // 续一秒
+    await pause3(1000) // 续一秒, do not forget await
     console.log('World', new Date().getTime()) // 一秒以后继续运行
 }
 
@@ -22,7 +22,12 @@ const pause = async (time) => {
 }
 
 const pause2 = async (time) => {
-    return new Promise(resolve => setTimeout(resolve, time)) 
+    // return new Promise(resolve => setTimeout(resolve, time)) 
+    return new Promise(function(resolve){
+        setTimeout(resolve, time)
+    });
 }
+// shorter form
+const pause3 = async ms => new Promise(resolve => setTimeout(resolve, ms));
 
 run()

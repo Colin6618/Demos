@@ -12,18 +12,33 @@ const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 const iPhone = devices['iPhone 6'];
 
-const uri = "https://mp.weixin.qq.com/s/2TI55y7bRNSQlgVLFcWgvA";
+const uri = "https://mp.weixin.qq.com/s/3OvVJIJBBigrDxXhE7Oxpw";
+// const uri = "https://mp.weixin.qq.com/s/2TI55y7bRNSQlgVLFcWgvA";
 
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.emulate(iPhone);
-    await page.goto(uri, { waitUntil: "networkidle2" });
-    const innerHeight = await page.evaluate(() => {
-        var pppHeight = document.body.clientHeight
-        window.scrollTo(0, pppHeight);
-        return pppHeight;
+    await page.goto(uri, {
+        waitUntil: "networkidle2"
     });
+    const innerHeight = await page.evaluate(async () => {
+        const pause = async ms => new Promise(resolve => setTimeout(resolve, ms));
+        let pageHeight = document.body.clientHeight;
+        let screenHeight = window.screen.height || 500;
+        for (let index = 0; index < pageHeight / screenHeight; index++) {
+            let eachOffset = screenHeight / 3;
+            // using promise chain cannot get the result expected, which is a big question
+            window.scrollBy(0, eachOffset);
+            await pause(100)
+            window.scrollBy(0, eachOffset);
+            await pause(100)
+            window.scrollBy(0, eachOffset);
+            await pause(100)
+        }
+        return pageHeight;
+    });
+
     console.log(innerHeight);
     await page.screenshot({
         path: `captured/${uri.slice(-5)}-${innerHeight}.png`,
@@ -41,3 +56,21 @@ process.on('unhandledRejection', (reason, p) => {
     // application specific logging, throwing an error, or other logic here
     process.exit(1)
 });
+
+// this can be run , but async mode will not help to wait all the img loaded
+// setTimeout(function () {
+//     window.scrollBy(0, eachOffset);
+// }, 501 * index - 334)
+// setTimeout(function () {
+//     window.scrollBy(0, eachOffset);
+// }, 501 * index - 167)
+// setTimeout(function () {
+//     window.scrollBy(0, eachOffset);
+// }, 501 * index)
+
+// using promise chain cannot get the result expected, which is a big question
+// pause(1)
+// .then(window.scrollBy(0, eachOffset)).then(pause(100))
+// .then(window.scrollBy(0, eachOffset)).then(pause(100))
+// .then(window.scrollBy(0, eachOffset)).then(pause(100))
+// .catch(e => {})
